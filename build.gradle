@@ -1,0 +1,21 @@
+plugins {
+    id 'com.gascharge.taemin.spring-boot-application-web'
+}
+
+version = '0.0.1'
+
+dependencies {
+    implementation 'org.springframework.data:spring-data-commons'
+    api project(':gascharge-service-reservation')
+    api project(':gascharge-service-token')
+    api project(':gascharge-module-security')
+    implementation project(':gascharge-common-common')
+}
+
+bootJar {
+    enabled = true
+}
+
+jar {
+    enabled = false
+}

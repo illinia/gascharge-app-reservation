@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: default
+    include: local
+    group:
+      local: local-db, oauth, local-security
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+server:
+  port: 8300
