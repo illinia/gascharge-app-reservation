@@ -22,7 +22,7 @@ pipeline {
             steps {
                 sh '''
                     echo 'Gradle project build start'
-                    ./gradlew clean bootJar
+                    gradle clean bootJar
                 '''
             }
         }
