@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        gradle 'gradle'
+    }
     stages {
         stage('start') {
             steps {
@@ -21,8 +24,8 @@ pipeline {
         stage('Gradle project build') {
             steps {
                 sh '''
-                    echo 'Gradle project build start'
-                    gradle clean bootJar
+                    echo 'Gradle 프로젝트 빌드 시작'
+                    ./gradlew clean build compileJava bootJar
                 '''
             }
         }
