@@ -2,11 +2,13 @@ pipeline {
     agent any
     stages {
         stage('start') {
-            slackSend (
-                channel: '#gascharge',
-                color: '#FFFF00',
-                message: "Started: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}]"
-            )
+            steps {
+                slackSend (
+                    channel: '#gascharge',
+                    color: '#FFFF00',
+                    message: "Started: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}]"
+                )
+            }
         }
         stage('Checkout') {
             steps {
