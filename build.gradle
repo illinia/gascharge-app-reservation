@@ -1,21 +1,95 @@
 plugins {
-    id 'com.gascharge.taemin.spring-boot-application-web'
+    id 'org.springframework.boot' version '2.7.3'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'java-library'
+    id 'maven-publish'
 }
 
-version = '0.0.1'
+group = 'com.gascharge.taemin'
+version = '0.0.1-SNAPSHOT'
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+if (project.hasProperty('dev')) {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        implementation 'com.gascharge.taemin:gascharge-module-redis:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-service-reservation:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-service-token:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-module-security:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-common-common:0.0.1-SNAPSHOT'
+    }
+} else if (project.hasProperty('pro')) {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/illinia/gascharge-lib")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    dependencies {
+        implementation 'com.gascharge.taemin:gascharge-module-redis:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-service-reservation:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-service-token:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-module-security:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-common-common:0.0.1-SNAPSHOT'
+    }
+} else {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        implementation 'com.gascharge.taemin:gascharge-module-redis:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-service-reservation:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-service-token:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-module-security:0.0.1-SNAPSHOT'
+        implementation 'com.gascharge.taemin:gascharge-common-common:0.0.1-SNAPSHOT'
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
 
 dependencies {
-    implementation 'org.springframework.data:spring-data-commons'
-    api project(':gascharge-service-reservation')
-    api project(':gascharge-service-token')
-    api project(':gascharge-module-security')
-    implementation project(':gascharge-common-common')
+    implementation 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+    testImplementation 'org.projectlombok:lombok:1.18.26'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 }
 
-bootJar {
-    enabled = true
-}
-
-jar {
-    enabled = false
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/illinia/gascharge-lib")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 }

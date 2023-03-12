@@ -2,4 +2,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: false
+    show-sql: true
+#  datasource:
+#    url: jdbc:mysql://localhost:13307/Reservation
+#    username: root
+#    password: 1212
+#    driver-class-name: com.mysql.cj.jdbc.Driver
