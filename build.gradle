@@ -48,15 +48,12 @@ if (project.hasProperty('dev')) {
         implementation 'com.gascharge.taemin:gascharge-common-common:0.0.1-SNAPSHOT'
     }
 } else {
-    repositories {
-        mavenLocal()
-    }
     dependencies {
-        implementation 'com.gascharge.taemin:gascharge-module-redis:0.0.1-SNAPSHOT'
-        implementation 'com.gascharge.taemin:gascharge-service-reservation:0.0.1-SNAPSHOT'
-        implementation 'com.gascharge.taemin:gascharge-service-token:0.0.1-SNAPSHOT'
-        implementation 'com.gascharge.taemin:gascharge-module-security:0.0.1-SNAPSHOT'
-        implementation 'com.gascharge.taemin:gascharge-common-common:0.0.1-SNAPSHOT'
+        implementation project(":gascharge-module-redis")
+        implementation project(":gascharge-service-reservation")
+        implementation project(":gascharge-service-token")
+        implementation project(":gascharge-module-security")
+        implementation project(":gascharge-common-common")
     }
 }
 
