@@ -55,9 +55,8 @@ pipeline {
                                     sourceFiles: 'docker-script.sh'
                                 ),
                                 sshTransfer(
-                                    execCommand: 'bash k8s/gascharge-app-reservation/docker-script.sh'
+                                    execCommand: 'bash /Users/gimtaemin/k8s/gascharge-app-reservation/docker-script.sh'
                                 )
-
                             ]
                         )
                     ]
