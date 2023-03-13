@@ -50,9 +50,6 @@ pipeline {
                                     remoteDirectory: 'k8s/gascharge-app-reservation',
                                     sourceFiles: 'Dockerfile'
                                 ),
-                                sshTransfer( 
-                                    execCommand: 'docker rmi gascharge-app-reservation'
-                                ),
                                 sshTransfer(
                                     execCommand: 'docker build -t gascharge-app-reservation k8s/gascharge-app-reservation/'
                                 )
