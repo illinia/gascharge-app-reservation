@@ -1,9 +1,11 @@
 spring:
   profiles:
-    active: default
-    include: local
+    active: local
+    include:
+      - local-security
     group:
-      local: local-db, oauth, local-security
+      local: local-db, oauth
+      dev: dev-db, oauth
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

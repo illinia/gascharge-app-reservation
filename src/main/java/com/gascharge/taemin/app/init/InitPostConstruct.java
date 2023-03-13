@@ -27,7 +27,7 @@ import static com.gascharge.taemin.domain.entity.user.UserTestData.*;
 
 @Component
 @Transactional
-@Profile({"default", "real"})
+@Profile({"local", "dev"})
 public class InitPostConstruct {
     @Autowired
     private UserRepository userRepository;

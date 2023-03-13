@@ -9,8 +9,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-#  datasource:
-#    url: jdbc:mysql://localhost:13307/Reservation
-#    username: root
-#    password: 1212
-#    driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource:
+    url: jdbc:mysql://172.17.0.1:13307/Reservation?useSSL=false
+    username: root
+    password: 1212
+    driver-class-name: com.mysql.cj.jdbc.Driver
