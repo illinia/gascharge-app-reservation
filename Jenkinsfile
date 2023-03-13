@@ -51,7 +51,7 @@ pipeline {
                                     sourceFiles: 'Dockerfile'
                                 ),
                                 sshTransfer(
-                                    execCommand: 'sudo docker build -t gascharge-app-reservation k8s/gascharge-app-reservation/'
+                                    execCommand: 'nohub sudo docker build -t gascharge-app-reservation k8s/gascharge-app-reservation/ > nohup-sudo.out 2>&1 &'
                                 )
                             ]
                         )
