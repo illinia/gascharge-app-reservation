@@ -54,10 +54,10 @@ pipeline {
                                     execCommand: 'nohup pwd > nohup-pwd.out 2>&1 &'
                                 ),
                                 sshTransfer(
-                                    execCommand: 'nohup docker rmi gascharge-app-reservation > nohup-rmi.out 2>&1 &'
+                                    execCommand: 'docker rmi gascharge-app-reservation'
                                 ),
                                 sshTransfer(
-                                    execCommand: 'nohup docker build -t gascharge-app-reservation k8s/gascharge-app-reservation/ > nohup.out 2>&1 &'
+                                    execCommand: 'docker build -t gascharge-app-reservation k8s/gascharge-app-reservation/'
                                 )
                             ]
                         )
