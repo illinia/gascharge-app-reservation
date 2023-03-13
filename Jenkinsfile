@@ -62,7 +62,7 @@ pipeline {
                                     remoteDirectory: '/Users/gimtaemin/k8s/gascharge-app-reservation',
                                     remoteDirectorySDF: false,
                                     removePrefix: '',
-                                    sourceFiles: 'application-oauth.yml'
+                                    sourceFiles: '../../application-oauth.yml'
                                 ),
                                 sshTransfer(
                                     cleanRemote: false,
