@@ -37,52 +37,22 @@ pipeline {
                         sshPublisherDesc(
                             configName: 'gascharge-app-ssh-server',
                             transfers: [
+                                sshTransfer(execCommand: 'docker rmi gascharge-app-reservation'),
                                 sshTransfer(
-                                    cleanRemote: false,
-                                    excludes: '',
-                                    execCommand: 'docker rmi gascharge-app-reservation',
-                                    execTimeout: 120000,
-                                    flatten: false,
-                                    makeEmptyDirs: false,
-                                    noDefaultExcludes: false,
-                                    patternSeparator: '[, ]+',
                                     remoteDirectory: 'k8s/gascharge-app-reservation',
-                                    remoteDirectorySDF: false,
                                     removePrefix: 'build/libs',
                                     sourceFiles: 'build/libs/gascharge-app-reservation-0.0.1-SNAPSHOT.jar'
                                 ),
                                 sshTransfer(
-                                    cleanRemote: false,
-                                    excludes: '',
-                                    execCommand: '',
-                                    execTimeout: 120000,
-                                    flatten: false,
-                                    makeEmptyDirs: false,
-                                    noDefaultExcludes: false,
-                                    patternSeparator: '[, ]+',
                                     remoteDirectory: 'k8s/gascharge-app-reservation',
-                                    remoteDirectorySDF: false,
-                                    removePrefix: '',
                                     sourceFiles: 'application-oauth.yml'
                                 ),
                                 sshTransfer(
-                                    cleanRemote: false,
-                                    excludes: '',
-                                    execCommand: 'docker build -t gascharge-app-reservation .',
-                                    execTimeout: 120000,
-                                    flatten: false,
-                                    makeEmptyDirs: false,
-                                    noDefaultExcludes: false,
-                                    patternSeparator: '[, ]+',
                                     remoteDirectory: 'k8s/gascharge-app-reservation',
-                                    remoteDirectorySDF: false,
-                                    removePrefix: '',
                                     sourceFiles: 'Dockerfile'
                                 ),
-                            ],
-                            usePromotionTimestamp: false,
-                            useWorkspaceInPromotion: false,
-                            verbose: false
+                                sshTransfer(execCommand: 'docker build -t gascharge-app-reservation .')
+                            ]
                         )
                     ]
                 )
