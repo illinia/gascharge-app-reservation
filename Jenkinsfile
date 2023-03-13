@@ -51,7 +51,7 @@ pipeline {
                                     sourceFiles: 'Dockerfile'
                                 ),
                                 sshTransfer(
-                                    execCommand: 'nohup pwd > nohup-pwd.out 2>&1 &'
+                                    execCommand: 'nohup docker ps -al > nohup-pwd.out 2>&1 &'
                                 ),
                                 sshTransfer(
                                     execCommand: 'docker rmi gascharge-app-reservation'
