@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker rmi gascharge-app-reservation
-docker build -t gascharge-app-reservation -f Dockerfile /Users/gimtaemin/k8s/gascharge-app-reservation
+touch test.txt
+docker build -t gascharge-app-reservation /Users/gimtaemin/k8s/gascharge-app-reservation
