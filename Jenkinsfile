@@ -51,12 +51,10 @@ pipeline {
                                     sourceFiles: 'Dockerfile'
                                 ),
                                 sshTransfer(
-                                    remoteDirectory: 'k8s/gascharge-app-reservation',
                                     execCommand: 'nohup docker rmi gascharge-app-reservation > nohup-rmi.out 2>&1 &'
                                 ),
                                 sshTransfer(
-                                    remoteDirectory: 'k8s/gascharge-app-reservation',
-                                    execCommand: 'nohup docker build -t gascharge-app-reservation . > nohup.out 2>&1 &'
+                                    execCommand: 'nohup docker build -t gascharge-app-reservation k8s/gascharge-app-reservation/ > nohup.out 2>&1 &'
                                 )
                             ]
                         )
