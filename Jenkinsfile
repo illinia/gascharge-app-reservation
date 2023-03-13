@@ -34,7 +34,7 @@ pipeline {
                 sshPublisher(
                     publishers: [
                         sshPublisherDesc(
-                            configName: 'aws-docker-server',
+                            configName: 'gascharge-app-ssh-server',
                             transfers: [
                                 sshTransfer(
                                     cleanRemote: false,
@@ -67,7 +67,7 @@ pipeline {
                                 sshTransfer(
                                     cleanRemote: false,
                                     excludes: '',
-                                    execCommand: 'docker build -t gascharge-app-reservation .; docker run --name gascharge-app-reservation-container -it -d -p 8400:8400 --privileged --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw gascharge-app-reservation /usr/sbin/init',
+                                    execCommand: 'docker build -t gascharge-app-reservation .',
                                     execTimeout: 120000,
                                     flatten: false,
                                     makeEmptyDirs: false,
