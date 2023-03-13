@@ -26,6 +26,7 @@ pipeline {
                 sh '''
                     echo 'Gradle 프로젝트 빌드 시작'
                     ./gradlew clean bootJar -Pdev
+                    cp /var/jenkins_home/workspace/application-oauth.yml /var/jenkins_home/workspace/gascharge-app-reservation/application-oauth.yml
                 '''
             }
         }
@@ -47,7 +48,7 @@ pipeline {
                                     patternSeparator: '[, ]+',
                                     remoteDirectory: 'k8s/gascharge-app-reservation',
                                     remoteDirectorySDF: false,
-                                    removePrefix: 'build/libs/',
+                                    removePrefix: 'build/libs',
                                     sourceFiles: 'build/libs/gascharge-app-reservation-0.0.1-SNAPSHOT.jar'
                                 ),
                                 sshTransfer(
@@ -62,7 +63,7 @@ pipeline {
                                     remoteDirectory: 'k8s/gascharge-app-reservation',
                                     remoteDirectorySDF: false,
                                     removePrefix: '',
-                                    sourceFiles: '../../application-oauth.yml'
+                                    sourceFiles: 'application-oauth.yml'
                                 ),
                                 sshTransfer(
                                     cleanRemote: false,
