@@ -26,7 +26,7 @@ pipeline {
                 sh '''
                     echo 'Gradle 프로젝트 빌드 시작'
                     ./gradlew clean bootJar -Pdev
-                    cp /var/jenkins_home/workspace/application-oauth.yml /var/jenkins_home/workspace/gascharge-app-reservation/application-oauth.yml
+                    cp /var/jenkins_home/application-oauth.yml /var/jenkins_home/workspace/gascharge-app-reservation/application-oauth.yml
                 '''
             }
         }
@@ -105,6 +105,15 @@ pipeline {
                 color: '#FF0000',
                 message: """
                     Failed ${env.JOB_NAME} [${env.BUILD_NUMBER}
+                """
+            )
+        }
+        unstable {
+            slackSend (
+                channel: '#gascharge',
+                color: '#FF0000',
+                message: """
+                    Unstable ${env.JOB_NAME} [${env.BUILD_NUMBER}
                 """
             )
         }
