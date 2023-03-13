@@ -40,7 +40,7 @@ pipeline {
                                 sshTransfer(
                                     cleanRemote: false,
                                     excludes: '',
-                                    execCommand: '',
+                                    execCommand: 'docker rmi gascharge-app-reservation',
                                     execTimeout: 120000,
                                     flatten: false,
                                     makeEmptyDirs: false,
