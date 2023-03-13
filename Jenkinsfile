@@ -37,7 +37,6 @@ pipeline {
                         sshPublisherDesc(
                             configName: 'gascharge-app-ssh-server',
                             transfers: [
-                                sshTransfer(execCommand: 'docker rmi gascharge-app-reservation'),
                                 sshTransfer(
                                     remoteDirectory: 'k8s/gascharge-app-reservation',
                                     removePrefix: 'build/libs',
@@ -51,8 +50,12 @@ pipeline {
                                     remoteDirectory: 'k8s/gascharge-app-reservation',
                                     sourceFiles: 'Dockerfile'
                                 ),
-                                sshTransfer(execCommand: 'echo "docker build 실행"'),
-                                sshTransfer(execCommand: 'docker build -t gascharge-app-reservation -f Dockerfile /Users/gimtaemin/k8s/gascharge-app-reservation')
+                                sshTransfer(
+                                    remoteDirectory: 'k8s/gascharge-app-reservation',
+                                    sourceFiles: 'docker-script.sh',
+                                    execCommand: 'bash docker-script.sh'
+                                )
+
                             ]
                         )
                     ]
