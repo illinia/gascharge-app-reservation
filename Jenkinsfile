@@ -44,29 +44,13 @@ pipeline {
                                 ),
                                 sshTransfer(
                                     remoteDirectory: 'k8s/gascharge-app-reservation',
-                                    sourceFiles: 'application-oauth.yml'
+                                    sourceFiles: 'application-oauth.yml, Dockerfile, docker-script.sh'
                                 ),
                                 sshTransfer(
-                                    remoteDirectory: 'k8s/gascharge-app-reservation',
-                                    sourceFiles: 'Dockerfile'
+                                    execCommand: 'chmod +x k8s/gascharge-app-reservation/docker-script.sh'
                                 ),
                                 sshTransfer(
-                                    execCommand: '/usr/local/bin/docker stop gascharge-app-reservation-container',
-                                    ignoreErrors: true
-                                ),
-                                sshTransfer(
-                                    execCommand: '/usr/local/bin/docker rm gascharge-app-reservation-container',
-                                    ignoreErrors: true
-                                ),
-                                sshTransfer(
-                                    execCommand: '/usr/local/bin/docker rmi gascharge-app-reservation',
-                                    ignoreErrors: true
-                                ),
-                                sshTransfer(
-                                    execCommand: 'nohup /usr/local/bin/docker build -t gascharge-app-reservation k8s/gascharge-app-reservation/ > nohup-app-reservation-build.out 2>&1 &'
-                                ),
-                                sshTransfer(
-                                    execCommand: 'nohup /usr/local/bin/docker run --name gascharge-app-reservation-container -it -d -p 8400:8400 --privileged --cgroupns=host -v /sys/fs/cgroup:/sys/fs/cgroup:rw gascharge-app-reservation /usr/sbin/init > nohup-app-reservation-run.out 2>&1 &'
+                                    execCommand: 'bash k8s/gascharge-app-reservation/docker-script.sh'
                                 )
                             ]
                         )
