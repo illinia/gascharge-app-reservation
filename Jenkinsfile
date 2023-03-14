@@ -51,13 +51,16 @@ pipeline {
                                     sourceFiles: 'Dockerfile'
                                 ),
                                 sshTransfer(
-                                    execCommand: '/usr/local/bin/docker stop gascharge-app-reservation-container'
+                                    execCommand: '/usr/local/bin/docker stop gascharge-app-reservation-container',
+                                    ignoreErrors: true
                                 ),
                                 sshTransfer(
-                                    execCommand: '/usr/local/bin/docker rm gascharge-app-reservation-container'
+                                    execCommand: '/usr/local/bin/docker rm gascharge-app-reservation-container',
+                                    ignoreErrors: true
                                 ),
                                 sshTransfer(
-                                    execCommand: '/usr/local/bin/docker rmi gascharge-app-reservation'
+                                    execCommand: '/usr/local/bin/docker rmi gascharge-app-reservation',
+                                    ignoreErrors: true
                                 ),
                                 sshTransfer(
                                     execCommand: 'nohup /usr/local/bin/docker build -t gascharge-app-reservation k8s/gascharge-app-reservation/ > nohup-app-reservation-build.out 2>&1 &'
