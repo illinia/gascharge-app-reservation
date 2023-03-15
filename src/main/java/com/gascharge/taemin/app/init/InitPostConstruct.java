@@ -23,7 +23,8 @@ import java.util.Optional;
 
 import static com.gascharge.taemin.domain.entity.charge.ChargeTestData.*;
 import static com.gascharge.taemin.domain.entity.reservation.ReservationTestData.*;
-import static com.gascharge.taemin.domain.entity.user.UserTestData.*;
+import static com.gascharge.taemin.domain.entity.user.UserTestData.ADMIN_TEST_EMAIL;
+import static com.gascharge.taemin.domain.entity.user.UserTestData.USER_TEST_EMAIL;
 
 @Component
 @Transactional

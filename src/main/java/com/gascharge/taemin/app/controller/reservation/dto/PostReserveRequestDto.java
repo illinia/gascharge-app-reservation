@@ -2,6 +2,7 @@ package com.gascharge.taemin.app.controller.reservation.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +25,7 @@ public class PostReserveRequestDto {
     @Future
     private LocalDateTime time;
 
+    @Builder
     public PostReserveRequestDto(String chargePlaceId, LocalDateTime time) {
         this.chargePlaceId = chargePlaceId;
         this.time = time;
