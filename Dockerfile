@@ -9,4 +9,4 @@ RUN yum install -y java-17-openjdk.aarch64
 COPY ./gascharge-app-reservation-0.0.1-SNAPSHOT.jar ./gascharge-app-reservation-0.0.1-SNAPSHOT.jar
 COPY ./application-oauth.yml ./application-oauth.yml
 
-ENTRYPOINT ["java", "-jar", "-Dspring.server.port=8400", "-Dspring.profiles.active=dev", "-Dspring.config.location=application-oauth.yml,classpath:/application.yml", "gascharge-app-reservation-0.0.1-SNAPSHOT.jar" ]
+ENTRYPOINT ["java", "-jar", "-Dserver.port=8400", "-Dspring.profiles.active=dev", "-Dspring.config.location=application-oauth.yml,classpath:/application.yml", "gascharge-app-reservation-0.0.1-SNAPSHOT.jar" ]
