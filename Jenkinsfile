@@ -24,7 +24,7 @@ pipeline {
         stage('Unit Test') {
             steps {
                 sh '''
-                    ./gradlew clean test
+                    ./gradlew clean test -Pdev
                 '''
             }
         }
