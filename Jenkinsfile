@@ -21,6 +21,13 @@ pipeline {
                     url: 'https://github.com/illinia/gascharge-app-reservation.git'
             }
         }
+        stage('Unit Test') {
+            steps {
+                sh '''
+                    ./gradlew clean test
+                '''
+            }
+        }
         stage('Gradle project build') {
             steps {
                 sh '''
