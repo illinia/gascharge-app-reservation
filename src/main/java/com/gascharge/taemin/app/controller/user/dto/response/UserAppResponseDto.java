@@ -10,14 +10,14 @@ public class UserAppResponseDto {
     private String name;
     private String email;
     private String image;
-    private UserAuthority userControllerAuthority;
+    private UserAuthority userAuthority;
 
     @Builder
-    public UserAppResponseDto(String name, String email, String image, UserAuthority userControllerAuthority) {
+    public UserAppResponseDto(String name, String email, String image, UserAuthority userAuthority) {
         this.name = name;
         this.email = email;
         this.image = image;
-        this.userControllerAuthority = userControllerAuthority;
+        this.userAuthority = userAuthority;
     }
 
     public static UserAppResponseDto getUserAppResponseDto(UserServiceResponseDto dto) {
@@ -25,7 +25,7 @@ public class UserAppResponseDto {
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .image(dto.getImageUrl())
-                .userControllerAuthority(dto.getAuthority())
+                .userAuthority(dto.getAuthority())
                 .build();
     }
 }

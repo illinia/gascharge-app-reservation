@@ -1,7 +1,10 @@
 package com.gascharge.taemin.app.controller.user;
 
 import com.gascharge.taemin.app.controller.user.dto.response.UserAppResponseDto;
+import com.gascharge.taemin.common.oauth.AuthProvider;
 import com.gascharge.taemin.domain.entity.user.search.UserSearchStatus;
+import com.gascharge.taemin.domain.enums.user.UserAuthority;
+import com.gascharge.taemin.domain.enums.user.UserEmailVerified;
 import com.gascharge.taemin.security.entity.CurrentUser;
 import com.gascharge.taemin.security.entity.UserPrincipal;
 import com.gascharge.taemin.service.user.UserService;
@@ -15,11 +18,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,8 +80,21 @@ public class UserController {
     @GetMapping("")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<UserAppResponseDto>> getUserList(
-            @RequestBody UserSearchStatus userSearchStatus,
+            @RequestParam(value = "email", required = false) @Email String email,
+            @RequestParam(value = "email-verified", required = false) UserEmailVerified emailVerified,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "provider", required = false) AuthProvider provider,
+            @RequestParam(value = "user-authority", required = false) UserAuthority userAuthority,
             @NotNull Pageable pageable) {
+
+        var userSearchStatus = UserSearchStatus.builder()
+                .email(email)
+                .emailVerified(emailVerified)
+                .name(name)
+                .authProvider(provider)
+                .userAuthority(userAuthority)
+                .build();
+
         List<UserServiceResponseDto> all = userService.findAll(userSearchStatus, pageable);
         List<UserAppResponseDto> collect = all.stream().map(UserAppResponseDto::getUserAppResponseDto).collect(Collectors.toList());
 

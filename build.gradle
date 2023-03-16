@@ -97,3 +97,7 @@ publishing {
         }
     }
 }
+
+jar {
+    enabled = false
+}
