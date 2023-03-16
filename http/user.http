@@ -1,5 +1,5 @@
 ### 토큰 값 획득
-GET {{local-reservation-app-url}}/token
+GET {{url}}/token
 
 > {%
     client.test("Validate", function () {
@@ -13,7 +13,7 @@ GET {{local-reservation-app-url}}/token
 
 
 ### 1. getCurrentUser
-GET {{local-reservation-app-url}}/user/me
+GET {{url}}/user/me
 Authorization: {{admin_jwt_token}}
 
 > {%
@@ -21,11 +21,13 @@ Authorization: {{admin_jwt_token}}
 %}
 
 ### 2. getUserList
-GET {{local-reservation-app-url}}/user
+GET {{url}}/user
 Content-Type: application/json
 Authorization: {{admin_jwt_token}}
 
-{}
+{
+
+}
 
 > {%
     client.assert(response.status === 200, 'status is not 200')

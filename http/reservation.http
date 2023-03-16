@@ -1,0 +1,90 @@
+### 0. 토큰 값 획득
+GET {{url}}/token
+
+> {%
+    client.test("Validate", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.contentType.mimeType === "application/json", "Expected 'application/json'");
+        client.assert(response.body.length > 0);
+    });
+
+    client.global.set("admin_jwt_token", response.body[1].jwtToken);
+%}
+
+
+### 1. reserve
+POST {{url}}/reservation
+Content-Type: application/json
+Authorization: {{admin_jwt_token}}
+
+{
+  "chargePlaceId": "1150020121HS2022025",
+  "time": "2023-10-13T20:00:00"
+}
+
+> {%
+ client.assert(response.status === 201, "status is not 201")
+ client.assert(response.body.reservationValidationId != null, "reservationValidationId is null")
+
+ client.global.set('reservationValidationId', response.body.reservationValidationId)
+ %}
+
+### 2. updateSelfReservationTime
+PATCH {{url}}/reservation
+Content-Type: application/json
+Authorization: {{admin_jwt_token}}
+
+{
+  "reservationValidationId": "{{reservationValidationId}}",
+  "email": "admin@test.com",
+  "updateTime": "2024-10-13T20:00:00"
+}
+
+> {%
+ client.assert(response.status === 200, 'status is not 200')
+ %}
+
+### 3. forceUpdate
+PATCH {{url}}/reservation/{{reservationValidationId}}
+Content-Type: application/json
+Authorization: {{admin_jwt_token}}
+
+{
+  "status": "NO_SHOW",
+  "reservationTime": "2025-10-13T20:00:00"
+}
+
+> {%
+ client.assert(response.status === 200, 'status is not 200')
+ client.assert(response.body.reserveTime === '2025-10-13T20:00:00', 'reservation time is not updated')
+ client.assert(response.body.status === 'NO_SHOW', 'status is not updated')
+ %}
+
+### 4. getById
+GET {{url}}/reservation/{{reservationValidationId}}
+Authorization: {{admin_jwt_token}}
+
+> {%
+    client.assert(response.status === 200, 'status is not 200')
+    client.assert(response.body.reserveTime === '2025-10-13T20:00:00', 'reservation time is not updated')
+    client.assert(response.body.status === 'NO_SHOW', 'status is not updated')
+%}
+
+### 5. getList
+GET {{url}}/reservation?email=admin@test.com
+Authorization: {{admin_jwt_token}}
+
+> {%
+client.assert(response.status === 200, 'status is not 200')
+client.assert(response.body.content.length > 0, 'content is not existing')
+ %}
+
+
+
+### cancel
+POST {{url}}/reservation/cancel?email=admin@test.com&reservationValidationId={{reservationValidationId}}
+Authorization: {{admin_jwt_token}}
+
+> {%
+    client.assert(response.status === 200, 'status is not 200')
+%}
