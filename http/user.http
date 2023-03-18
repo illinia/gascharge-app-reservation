@@ -25,9 +25,7 @@ GET {{url}}/user
 Content-Type: application/json
 Authorization: {{admin_jwt_token}}
 
-{
-
-}
+{}
 
 > {%
     client.assert(response.status === 200, 'status is not 200')

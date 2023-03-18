@@ -18,7 +18,7 @@ Content-Type: application/json
 Authorization: {{admin_jwt_token}}
 
 {
-  "chargePlaceId": "1150020121HS2022025",
+  "chargePlaceId": "test0",
   "time": "2023-10-13T20:00:00"
 }
 
